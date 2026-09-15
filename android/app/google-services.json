@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "119077945924",
+    "project_id": "samrt-medical-system",
+    "storage_bucket": "samrt-medical-system.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:119077945924:android:c6d889a56e1c71a5f7b211",
+        "android_client_info": {
+          "package_name": "smart.med"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "119077945924-midq2gama6ts8vnj3jvs8u3ic8oritt3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDlC0VO2e2sLfi6Vr-vsjMwgo5oYWX4ZZ8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "119077945924-midq2gama6ts8vnj3jvs8u3ic8oritt3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

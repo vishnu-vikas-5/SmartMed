@@ -1,0 +1,86 @@
+{
+  "users": {
+    "DEMO_USER_001": {
+      "name": "Alex Johnson",
+      "email": "alex@example.com",
+      "createdAt": "2026-09-15T08:00:00.000Z",
+      "medicines": {
+        "MED001": {
+          "medicineId": "MED001",
+          "name": "Paracetamol",
+          "dosage": "500 mg",
+          "quantity": 1,
+          "time": "08:00",
+          "compartment": 2,
+          "frequency": "Daily",
+          "instructions": "Take after breakfast with water",
+          "enabled": true,
+          "createdAt": "2026-09-15T08:00:00.000Z"
+        },
+        "MED002": {
+          "medicineId": "MED002",
+          "name": "Vitamin D3",
+          "dosage": "1000 IU",
+          "quantity": 1,
+          "time": "13:00",
+          "compartment": 1,
+          "frequency": "Daily",
+          "instructions": "Take with lunch",
+          "enabled": true,
+          "createdAt": "2026-09-15T08:00:00.000Z"
+        },
+        "MED003": {
+          "medicineId": "MED003",
+          "name": "Omega 3 Capsule",
+          "dosage": "1000 mg",
+          "quantity": 1,
+          "time": "20:00",
+          "compartment": 3,
+          "frequency": "Daily",
+          "instructions": "Take before bedtime",
+          "enabled": true,
+          "createdAt": "2026-09-15T08:00:00.000Z"
+        }
+      },
+      "devices": {
+        "SM-ESP32-001": {
+          "deviceName": "SmartMed Box",
+          "pairedAt": "2026-09-15T08:30:00.000Z"
+        }
+      }
+    }
+  },
+  "devices": {
+    "SM-ESP32-001": {
+      "deviceId": "SM-ESP32-001",
+      "userId": "DEMO_USER_001",
+      "deviceName": "SmartMed Box",
+      "status": "online",
+      "lastSeen": "2026-09-15T17:10:00.000Z",
+      "firmwareVersion": "1.0.0",
+      "compartmentCount": 4,
+      "wifiStatus": "Connected",
+      "currentActivity": "Waiting for schedule",
+      "schedule": {
+        "MED001": {
+          "medicineId": "MED001",
+          "medicineName": "Paracetamol",
+          "dosage": "500 mg",
+          "quantity": 1,
+          "time": "08:00",
+          "compartment": 2,
+          "enabled": true
+        },
+        "MED002": {
+          "medicineId": "MED002",
+          "medicineName": "Vitamin D3",
+          "dosage": "1000 IU",
+          "quantity": 1,
+          "time": "13:00",
+          "compartment": 1,
+          "enabled": true
+        }
+      }
+    }
+  }
+}
