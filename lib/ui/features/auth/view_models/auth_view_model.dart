@@ -130,6 +130,17 @@ class AuthViewModel extends ChangeNotifier {
     }
   }
 
+  Future<bool> sendEmailVerification() async {
+    try {
+      await _authRepository.sendEmailVerification();
+      return true;
+    } catch (e) {
+      _errorMessage = _cleanFirebaseError(e.toString());
+      notifyListeners();
+      return false;
+    }
+  }
+
   Future<void> logout() async {
     await _authRepository.logout();
     _currentUser = null;
@@ -137,6 +148,9 @@ class AuthViewModel extends ChangeNotifier {
   }
 
   String _cleanFirebaseError(String err) {
+    if (err.contains('EMAIL_NOT_VERIFIED')) {
+      return 'Please verify your email address before logging in. A verification link has been sent to your email inbox.';
+    }
     if (err.contains('user-not-found')) return 'No user found with this email.';
     if (err.contains('wrong-password')) return 'Incorrect password.';
     if (err.contains('email-already-in-use')) return 'Email is already registered.';

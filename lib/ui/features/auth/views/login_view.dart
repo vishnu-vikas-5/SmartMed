@@ -96,17 +96,54 @@ class _LoginViewState extends State<LoginView> {
                       borderRadius: BorderRadius.circular(12),
                       border: Border.all(color: AppColors.missed),
                     ),
-                    child: Row(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Icon(Icons.error_outline, color: AppColors.missed),
-                        const SizedBox(width: 8),
-                        Expanded(
-                          child: Text(
-                            authVm.errorMessage!,
-                            style: const TextStyle(
-                                color: AppColors.missed, fontSize: 13),
-                          ),
+                        Row(
+                          children: [
+                            const Icon(Icons.error_outline, color: AppColors.missed),
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: Text(
+                                authVm.errorMessage!,
+                                style: const TextStyle(
+                                    color: AppColors.missed, fontSize: 13),
+                              ),
+                            ),
+                          ],
                         ),
+                        if (authVm.errorMessage!.contains('verify your email')) ...[
+                          const SizedBox(height: 8),
+                          TextButton.icon(
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.zero,
+                              minimumSize: const Size(0, 30),
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            ),
+                            icon: const Icon(Icons.send_rounded,
+                                size: 14, color: AppColors.primary),
+                            label: const Text(
+                              'Resend Verification Link',
+                              style: TextStyle(
+                                fontSize: 13,
+                                fontWeight: FontWeight.bold,
+                                color: AppColors.primary,
+                              ),
+                            ),
+                            onPressed: () async {
+                              final sent = await authVm.sendEmailVerification();
+                              if (context.mounted) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(sent
+                                        ? 'Verification email resent! Please check your inbox.'
+                                        : 'Failed to resend email.'),
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                        ],
                       ],
                     ),
                   ),

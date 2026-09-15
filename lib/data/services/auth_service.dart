@@ -59,6 +59,11 @@ class AuthService {
 
         await user.updateDisplayName(name);
 
+        // Send email verification link
+        try {
+          await user.sendEmailVerification();
+        } catch (_) {}
+
         final userModel = UserModel(
           uid: user.uid,
           name: name,
@@ -87,6 +92,14 @@ class AuthService {
     return _demoUser!;
   }
 
+  /// Send Email Verification
+  Future<void> sendEmailVerification() async {
+    final user = _auth?.currentUser;
+    if (user != null && !user.emailVerified) {
+      await user.sendEmailVerification();
+    }
+  }
+
   /// Sign in with Email and Password
   Future<UserModel?> signInWithEmailAndPassword({
     required String email,
@@ -105,6 +118,14 @@ class AuthService {
 
         final User? user = credential.user;
         if (user != null) {
+          // Reload user to get latest emailVerified status
+          await user.reload();
+          final User? refreshedUser = auth.currentUser;
+
+          if (refreshedUser != null && !refreshedUser.emailVerified) {
+            throw Exception('EMAIL_NOT_VERIFIED');
+          }
+
           final doc =
               await firestore.collection('users').doc(user.uid).get();
           if (doc.exists && doc.data() != null) {

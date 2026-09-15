@@ -35,17 +35,50 @@ class _RegisterViewState extends State<RegisterView> {
     if (!_formKey.currentState!.validate()) return;
 
     final authVm = Provider.of<AuthViewModel>(context, listen: false);
+    final registeredEmail = _emailController.text.trim();
     final success = await authVm.register(
       name: _nameController.text.trim(),
-      email: _emailController.text.trim(),
+      email: registeredEmail,
       password: _passwordController.text,
       confirmPassword: _confirmPasswordController.text,
     );
 
     if (success && mounted) {
-      Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (_) => const MainLayoutView()),
-        (route) => false,
+      await authVm.logout();
+      showDialog(
+        context: context,
+        barrierDismissible: false,
+        builder: (ctx) => AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          title: const Row(
+            children: [
+              Icon(Icons.mark_email_read_rounded, color: AppColors.primary, size: 28),
+              SizedBox(width: 10),
+              Text('Verify Your Email'),
+            ],
+          ),
+          content: Text(
+            'A verification email has been sent to $registeredEmail.\n\nPlease check your inbox and click the verification link before signing in.',
+            style: const TextStyle(fontSize: 14, height: 1.4),
+          ),
+          actions: [
+            ElevatedButton(
+              onPressed: () {
+                Navigator.of(ctx).pop();
+                Navigator.of(context).pop();
+              },
+              style: ElevatedButton.styleFrom(
+                backgroundColor: AppColors.primary,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+              ),
+              child: const Text('OK, Go to Login', style: TextStyle(color: Colors.white)),
+            ),
+          ],
+        ),
       );
     }
   }
